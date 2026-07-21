@@ -268,7 +268,7 @@ function Hero() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-              7 dias de teste grátis, sem fidelidade e sem cartão
+              14 dias de teste grátis, sem fidelidade e sem cobrança
             </motion.div>
             <motion.h1
               className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] leading-[1.02] font-bold"
@@ -2378,7 +2378,7 @@ function CTAFinal() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         >
-          Comece hoje. Sem fidelidade, sem cartão, sem instalar nada.
+          Comece hoje. 14 dias grátis, sem fidelidade e sem instalar nada.
         </motion.p>
         <motion.div
           className="mt-10 flex flex-col sm:flex-row gap-3 justify-center"
