@@ -10,7 +10,6 @@ import {
   Loader2, FileText,
 } from "lucide-react";
 import logoAsset from "@/assets/patio-logo.png.asset.json";
-import whatsappIconAsset from "@/assets/whatsapp-icon.png.asset.json";
 import dashboardAsset from "@/assets/patio-dashboard.png.asset.json";
 import oficinaLogo from "@/assets/oficina-logo.png.asset.json";
 import salesChart from "@/assets/sales-chart.png.asset.json";
@@ -78,7 +77,7 @@ function LandingPage() {
       <SectionDivider icon={KeyRound} label="Comece hoje" />
       <CTAFinal />
       <Footer />
-      <FloatingWhatsApp />
+      {/* <FloatingWhatsApp /> removido: número placeholder, ninguém do outro lado. */}
     </div>
   );
 }
@@ -2387,7 +2386,7 @@ function CTAFinal() {
           transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
         >
           <motion.a
-            href="#"
+            href="https://admin.patioos.com.br/assinar?plano=pro"
             className="btn-primary text-base px-6 py-3.5 animate-pulse-glow btn-shimmer"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.97 }}
@@ -2395,43 +2394,15 @@ function CTAFinal() {
           >
             Quero começar agora <ArrowRight className="h-4 w-4" />
           </motion.a>
-          <motion.a
-            href="https://wa.me/5511999999999"
-            target="_blank"
-            rel="noreferrer"
-            className="btn-whatsapp text-base px-6 py-3.5"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          >
-            <MessageCircle className="h-5 w-5" /> Falar com a gente
-          </motion.a>
+          {/* Botão de WhatsApp removido em 21/07/2026: apontava para
+              wa.me/5511999999999, um número que não existe. Botão morto é pior
+              que nenhum botão. Volta quando houver número real. */}
         </motion.div>
       </div>
     </section>
   );
 }
 
-/* ---------------- FLOATING WHATSAPP ---------------- */
-function FloatingWhatsApp() {
-  return (
-    <motion.a
-      href="https://wa.me/5511999999999"
-      target="_blank"
-      rel="noreferrer"
-      aria-label="Falar no WhatsApp"
-      className="fixed bottom-6 right-6 z-[9999] block w-14 h-14 rounded-full shadow-[0_8px_32px_-8px_rgba(37,211,102,0.55)]"
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 1.5, type: "spring", stiffness: 260, damping: 20 }}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      <img src={whatsappIconAsset.url} alt="WhatsApp" className="w-14 h-14 rounded-full block" />
-      <span className="sr-only">Falar no WhatsApp</span>
-    </motion.a>
-  );
-}
 
 /* ---------------- FOOTER ---------------- */
 function Footer() {
@@ -2466,8 +2437,8 @@ function Footer() {
           <div>
             <div className="font-semibold text-sm mb-4">Legal</div>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-foreground">Termos de uso</a></li>
-              <li><a href="#" className="hover:text-foreground">Privacidade</a></li>
+              <li><a href="https://admin.patioos.com.br/termos" target="_blank" rel="noreferrer" className="hover:text-foreground">Termos de uso</a></li>
+              <li><a href="https://admin.patioos.com.br/privacidade" target="_blank" rel="noreferrer" className="hover:text-foreground">Privacidade</a></li>
               <li><a href="#" className="hover:text-foreground">Contato</a></li>
             </ul>
           </div>
