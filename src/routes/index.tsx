@@ -2217,15 +2217,16 @@ function CTAFinal() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
         >
-          <motion.a
-            href="https://admin.patioos.com.br/assinar?plano=pro"
+          {/* Sem destino de propósito: preço é sob consulta, a página de assinatura não entra no ar. */}
+          <motion.button
+            type="button"
             className="btn-primary text-base px-6 py-3.5 animate-pulse-glow btn-shimmer"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             Quero começar agora <ArrowRight className="h-4 w-4" />
-          </motion.a>
+          </motion.button>
           {/* Botão de WhatsApp removido em 21/07/2026: apontava para
               wa.me/5511999999999, um número que não existe. Botão morto é pior
               que nenhum botão. Volta quando houver número real. */}
