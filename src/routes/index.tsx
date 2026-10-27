@@ -31,7 +31,6 @@ import hondaPcx150 from "@/assets/honda-pcx-150.png.asset.json";
 import fordEcosport from "@/assets/ford-ecosport.png.asset.json";
 import nissanKicks from "@/assets/nissan-kicks.png.asset.json";
 import MockupPatioOS from "@/components/MockupPatioOS";
-import { PAYMENT_LINKS } from "@/lib/checkout";
 import { Iphone16Pro } from "@/components/Iphone16Pro";
 import { Confetti } from "@/components/Confetti";
 
@@ -70,8 +69,8 @@ function LandingPage() {
       <VitrineIA />
       <SectionDivider icon={Star} label="Quem já usa" />
       <Depoimentos />
-      <SectionDivider icon={CheckCircle2} label="Planos e preços" />
-      <Planos />
+      <SectionDivider icon={CheckCircle2} label="Preço sob consulta" />
+      <SobConsulta />
       <SectionDivider icon={Search} label="Dúvidas frequentes" />
       <FAQ />
       <SectionDivider icon={KeyRound} label="Comece hoje" />
@@ -218,7 +217,7 @@ function Nav() {
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
           <a href="#patio" className="hover:text-foreground transition">Pátio</a>
           <a href="#os" className="hover:text-foreground transition">OS digital</a>
-          <a href="#planos" className="hover:text-foreground transition">Planos</a>
+          <a href="#planos" className="hover:text-foreground transition">Preços</a>
           <a href="#faq" className="hover:text-foreground transition">Dúvidas</a>
         </nav>
         <div className="hidden md:flex items-center gap-3">
@@ -233,7 +232,7 @@ function Nav() {
         <div className="pointer-events-auto md:hidden mx-auto max-w-5xl mt-2 rounded-2xl border border-border bg-background px-5 py-4 flex flex-col gap-4 shadow-2xl shadow-foreground/15">
           <a href="#patio" onClick={() => setOpen(false)}>Pátio</a>
           <a href="#os" onClick={() => setOpen(false)}>OS digital</a>
-          <a href="#planos" onClick={() => setOpen(false)}>Planos</a>
+          <a href="#planos" onClick={() => setOpen(false)}>Preços</a>
           <a href="#faq" onClick={() => setOpen(false)}>Dúvidas</a>
           <a href="#cta" onClick={() => setOpen(false)} className="btn-primary text-center btn-shimmer">Testar grátis</a>
         </div>
@@ -296,7 +295,7 @@ function Hero() {
               <a href="#cta" className="btn-primary text-base px-6 py-3.5 btn-shimmer">
                 Quero organizar minha oficina <ArrowRight className="h-4 w-4" />
               </a>
-              <a href="#planos" className="btn-ghost text-base px-6 py-3.5">Ver planos</a>
+              <a href="#planos" className="btn-ghost text-base px-6 py-3.5">Consultar valores</a>
             </motion.div>
             <motion.div
               className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-muted-foreground"
@@ -2061,240 +2060,72 @@ function Depoimentos() {
   );
 }
 
-/* ---------------- PLANOS ---------------- */
-function Planos() {
-  const [annual, setAnnual] = useState(true);
-  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
-  const [checkoutError, setCheckoutError] = useState<string | null>(null);
-
-  const startCheckout = (plan: string) => {
-    setCheckoutError(null);
-    const url = PAYMENT_LINKS[plan]?.[annual ? "year" : "month"];
-    if (!url) {
-      setCheckoutError("Não foi possível abrir o pagamento agora. Tente de novo em instantes ou chame a gente no WhatsApp.");
-      return;
-    }
-    setLoadingPlan(plan);
-    window.location.href = url;
-  };
-  const plans = [
-    {
-      name: "START", tag: "Pra começar", highlight: false,
-      mensal: 149, anual: 1490,
-      desc: "Ideal para oficinas que estão dando os primeiros passos no digital.",
-      features: [
-        { label: "Até 2 usuários", included: true },
-        { label: "1 unidade", included: true },
-        { label: "OS, estoque e financeiro", included: true },
-        { label: "OCR de placa: 100/mês", included: true },
-        { label: "Suporte por e-mail", included: true },
-        { label: "Assistente com IA", included: false },
-        { label: "Disparos WhatsApp", included: false },
-        { label: "Auto Vitrine", included: false },
-        { label: "Pixel na vitrine", included: false },
-      ],
-    },
-    {
-      name: "PRO", tag: "Popular", highlight: true,
-      mensal: 297, anual: 2970,
-      desc: "Ideal para oficinas em crescimento que querem automatizar e escalar.",
-      features: [
-        { label: "Até 5 usuários", included: true },
-        { label: "1 unidade", included: true },
-        { label: "OS, estoque e financeiro", included: true },
-        { label: "Assistente com IA", included: true },
-        { label: "OCR de placa: 500/mês", included: true },
-        { label: "Disparos WhatsApp: 1.000/mês", included: true },
-        { label: "Auto Vitrine (agendamento + cardápio)", included: true },
-        { label: "Pixel na vitrine (Meta/Google)", included: true },
-        { label: "Suporte prioritário", included: true },
-      ],
-    },
-    {
-      name: "MAX", tag: "Sem limites", highlight: false,
-      mensal: 497, anual: 4970,
-      desc: "Ideal para oficinas estruturadas que querem crescer com processos avançados e máxima eficiência.",
-      features: [
-        { label: "Usuários ilimitados", included: true },
-        { label: "2 unidades", included: true },
-        { label: "OS, estoque e financeiro", included: true },
-        { label: "Assistente com IA", included: true },
-        { label: "OCR de placa: ilimitado", included: true },
-        { label: "Disparos WhatsApp: 5.000/mês", included: true },
-        { label: "Auto Vitrine (agendamento + cardápio)", included: true },
-        { label: "Pixel na vitrine (Meta/Google)", included: true },
-        { label: "Suporte: grupo WhatsApp + dedicado", included: true },
-      ],
-    },
+/* ---------------- PREÇO SOB CONSULTA ---------------- */
+function SobConsulta() {
+  const features = [
+    "OS, estoque e financeiro",
+    "OCR de placa",
+    "Assistente com IA",
+    "Disparos automáticos no WhatsApp",
+    "Auto Vitrine (agendamento + cardápio)",
+    "Pixel na vitrine (Meta/Google)",
+    "Usuários e unidades conforme sua operação",
+    "Suporte dedicado",
   ];
 
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
     <section id="planos" className="py-14 sm:py-20 md:py-32 bg-white" ref={ref}>
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+      <div className="mx-auto max-w-5xl px-5 sm:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight">
             Flexibilidade e recursos sob medida para cada oficina
           </h2>
+          <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
+            Cada oficina tem um tamanho e uma rotina, por isso o valor é montado sob medida para a sua operação.
+          </p>
+        </div>
 
-          {/* Toggle */}
-          <div className="mt-10 flex items-center justify-center gap-4">
-            <span className={`text-sm font-medium transition ${!annual ? "text-foreground" : "text-muted-foreground"}`}>Mensal</span>
-            <button
-              onClick={() => setAnnual(!annual)}
-              className="relative w-14 h-8 rounded-full transition-colors"
-              style={{ backgroundColor: annual ? "oklch(0.72 0.17 85)" : "oklch(0.85 0.01 80)" }}
-              aria-label="Alternar entre mensal e anual"
+        <motion.div
+          className="mt-10 md:mt-14 rounded-3xl border border-plan-coral/30 p-6 sm:p-10 grid md:grid-cols-2 gap-8 md:gap-12 items-center"
+          style={{ backgroundColor: "oklch(0.97 0.02 90)" }}
+          initial={{ opacity: 0, y: 60, scale: 0.94 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div>
+            <div className="text-sm font-semibold text-foreground">Valor</div>
+            <div
+              className="mt-3 font-display text-4xl sm:text-5xl font-bold tracking-tight"
+              style={{ color: "oklch(0.72 0.17 85)" }}
             >
-              <span
-                className="absolute top-1 left-1 h-6 w-6 rounded-full bg-white shadow transition-transform"
-                style={{ transform: annual ? "translateX(24px)" : "translateX(0)" }}
-              />
-            </button>
-            <span className={`text-sm font-medium transition ${annual ? "text-foreground" : "text-muted-foreground"}`}>Anual</span>
-            <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{ backgroundColor: "oklch(0.97 0.02 90)", color: "oklch(0.72 0.17 85)" }}>
-              Economize 30%
-            </span>
+              Sob consulta
+            </div>
+            <p className="mt-4 text-sm leading-relaxed" style={{ color: "oklch(0.45 0.01 70)" }}>
+              O valor é definido conforme o número de usuários, unidades e recursos que sua oficina precisa.
+              Sem fidelidade e com 14 dias de teste grátis.
+            </p>
+            {/* Botão "Consultar valores" volta quando houver número de WhatsApp real. */}
           </div>
-        </div>
 
-        {/* Cards */}
-        <div className="mt-10 md:mt-14 grid lg:grid-cols-3 gap-6">
-          {plans.map((p, pIdx) => {
-            const price = annual ? Math.round(p.anual / 12) : p.mensal;
-            const totalAnual = p.anual;
-            return (
-              <motion.div
-                key={p.name}
-                className={`relative rounded-3xl border p-6 sm:p-8 flex flex-col hover-lift ${
-                  p.highlight
-                    ? "border-plan-coral/30"
-                    : "border-gray-200"
-                }`}
-                style={p.highlight ? { backgroundColor: "oklch(0.97 0.02 90)" } : { backgroundColor: "#fff" }}
-                initial={{ opacity: 0, y: 60, scale: 0.94 }}
-                animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                transition={{ duration: 0.7, delay: 0.1 + pIdx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -10, scale: 1.03, boxShadow: "var(--shadow-float)" }}
-              >
-                {/* Badge */}
-                {p.highlight && (
-                  <div className="absolute -top-3 left-6 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold" style={{ backgroundColor: "oklch(0.97 0.02 90)", color: "oklch(0.72 0.17 85)", border: "1px solid oklch(0.85 0.04 88)" }}>
-                    <Zap className="h-3 w-3" /> Popular
-                  </div>
-                )}
-
-                <div className="text-sm font-semibold text-foreground">{p.name}</div>
-
-                {/* Preço */}
-                <div className="mt-5">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-2xl font-medium" style={{ color: "oklch(0.70 0.01 80)" }}>R$</span>
-                    <span
-                      className="font-display text-5xl font-bold tracking-tight"
-                      style={{ color: p.highlight ? "oklch(0.72 0.17 85)" : "oklch(0.18 0.015 60)" }}
-                    >
-                      {price.toLocaleString("pt-BR")}
-                    </span>
-                    <span
-                      className="text-base font-medium ml-1"
-                      style={{ color: p.highlight ? "oklch(0.72 0.17 85)" : "oklch(0.55 0.01 70)" }}
-                    >
-                      /mês
-                    </span>
-                  </div>
-                  <div className="text-sm mt-1" style={{ color: "oklch(0.55 0.01 70)" }}>
-                    {annual ? (
-                      <>R$ {totalAnual.toLocaleString("pt-BR")} cobrado anualmente</>
-                    ) : (
-                      <>R$ {p.mensal.toLocaleString("pt-BR")} cobrado mensalmente</>
-                    )}
-                  </div>
-                </div>
-
-                {/* Descrição */}
-                <p className="mt-4 text-sm leading-relaxed" style={{ color: "oklch(0.45 0.01 70)" }}>
-                  {p.desc}
-                </p>
-
-                {/* Features */}
-                <div className="mt-8">
-                  <div className="text-sm font-semibold text-foreground mb-4">O que está incluído:</div>
-                  <ul className="space-y-3">
-                    {p.features.map((f) => (
-                      <li key={f.label} className="flex gap-3 text-sm">
-                        <span
-                          className="mt-0.5 h-5 w-5 rounded-full flex items-center justify-center shrink-0"
-                          style={{
-                            backgroundColor: f.included ? "oklch(0.72 0.17 85)" : "oklch(0.85 0.01 80)",
-                          }}
-                        >
-                          {f.included ? (
-                            <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                          ) : (
-                            <X className="h-3 w-3" style={{ color: "oklch(0.55 0.01 70)" }} strokeWidth={3} />
-                          )}
-                        </span>
-                        <span
-                          className={f.included ? "" : "line-through"}
-                          style={{ color: f.included ? "oklch(0.35 0.01 60)" : "oklch(0.55 0.01 70)" }}
-                        >
-                          {f.label}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Botão */}
-                <button
-                  onClick={() => startCheckout(p.name)}
-                  disabled={loadingPlan !== null}
-                  className={`mt-auto text-center inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full text-sm font-semibold transition hover:opacity-90 btn-shimmer disabled:opacity-60 disabled:cursor-wait ${
-                    p.highlight
-                      ? "text-white"
-                      : p.name === "START"
-                        ? "text-foreground"
-                        : "border text-foreground hover:bg-gray-50"
-                  }`}
-                  style={
-                    p.highlight
-                      ? { backgroundColor: "oklch(0.72 0.17 85)" }
-                      : p.name === "START"
-                        ? { backgroundColor: "oklch(0.95 0.01 90)" }
-                        : { borderColor: "oklch(0.85 0.01 80)" }
-                  }
-                >
-                  {loadingPlan === p.name ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" style={{ color: p.highlight ? "#fff" : "oklch(0.72 0.17 85)" }} />
-                      Abrindo pagamento...
-                    </>
-                  ) : (
-                    <>
-                      Quero começar agora
-                      <ArrowRight
-                        className="h-4 w-4"
-                        style={{ color: p.highlight ? "#fff" : "oklch(0.72 0.17 85)" }}
-                      />
-                    </>
-                  )}
-                </button>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {checkoutError && (
-          <motion.p
-            className="mt-6 text-center text-sm text-destructive font-medium"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            {checkoutError}
-          </motion.p>
-        )}
+          <div>
+            <div className="text-sm font-semibold text-foreground mb-4">O que está incluído:</div>
+            <ul className="space-y-3">
+              {features.map((f) => (
+                <li key={f} className="flex gap-3 text-sm">
+                  <span
+                    className="mt-0.5 h-5 w-5 rounded-full flex items-center justify-center shrink-0"
+                    style={{ backgroundColor: "oklch(0.72 0.17 85)" }}
+                  >
+                    <Check className="h-3 w-3 text-white" strokeWidth={3} />
+                  </span>
+                  <span style={{ color: "oklch(0.35 0.01 60)" }}>{f}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -2305,8 +2136,9 @@ function FAQ() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const faqs = [
-    { q: "Tem fidelidade ou multa se eu cancelar?", a: "No plano mensal, não tem fidelidade nenhuma. Cancela quando quiser, sem multa, sem burocracia. No plano anual, se desistir, devolvemos os meses não usados." },
-    { q: "Serve pra uma oficina pequena, de 2 ou 3 pessoas?", a: "Serve sim. O plano Start foi feito pra isso: até 2 usuários e uma unidade, com OS, estoque e financeiro completos. Muita oficina começa com 2 e cresce dentro do sistema." },
+    { q: "Tem fidelidade ou multa se eu cancelar?", a: "Não tem fidelidade nenhuma. Cancela quando quiser, sem multa, sem burocracia." },
+    { q: "Serve pra uma oficina pequena, de 2 ou 3 pessoas?", a: "Serve sim. O valor é montado conforme o tamanho da sua oficina, com OS, estoque e financeiro completos desde o início. Muita oficina começa com 2 pessoas e cresce dentro do sistema." },
+    { q: "Quanto custa?", a: "O valor é sob consulta: depende do número de usuários, unidades e recursos que sua oficina precisa. Montamos uma proposta sob medida para a sua operação." },
     { q: "Precisa instalar algo no computador?", a: "Não. O Pátio OS abre no navegador, no celular, tablet ou computador. Também dá pra instalar como aplicativo (PWA) e usar como se fosse app nativo, com atalho na tela." },
     { q: "Preciso entender de tecnologia pra usar?", a: "Não. Foi feito com dono de oficina, não com programador. As telas seguem o fluxo do dia a dia: recebe o carro, faz orçamento, executa, cobra. Se souber usar WhatsApp, usa o Pátio OS." },
     { q: "Funciona no celular?", a: "Funciona no celular, tablet e computador. O mecânico atualiza a OS no celular, você fecha o caixa no computador, tudo em tempo real na mesma tela." },
@@ -2429,7 +2261,7 @@ function Footer() {
           <div>
             <div className="font-semibold text-sm mb-4">Produto</div>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
-              <li><a href="#planos" className="hover:text-foreground">Planos</a></li>
+              <li><a href="#planos" className="hover:text-foreground">Preços</a></li>
               <li><a href="#faq" className="hover:text-foreground">Dúvidas</a></li>
               <li><a href="#cta" className="hover:text-foreground">Começar</a></li>
             </ul>
