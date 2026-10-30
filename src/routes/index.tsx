@@ -222,7 +222,7 @@ function Nav() {
         </nav>
         <div className="hidden md:flex items-center gap-3">
           <a href="#planos" className="text-sm text-muted-foreground hover:text-foreground">Entrar</a>
-          <a href="#cta" className={`btn-primary btn-shimmer ${scrolled ? "!py-2 !px-4 !text-[0.85rem]" : ""}`}>Testar grátis</a>
+          <a href="#cta" className={`btn-primary btn-shimmer ${scrolled ? "!py-2 !px-4 !text-[0.85rem]" : ""}`}>Começar agora</a>
         </div>
         <button onClick={() => setOpen(!open)} className="md:hidden text-foreground p-2">
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -234,7 +234,7 @@ function Nav() {
           <a href="#os" onClick={() => setOpen(false)}>OS digital</a>
           <a href="#planos" onClick={() => setOpen(false)}>Preços</a>
           <a href="#faq" onClick={() => setOpen(false)}>Dúvidas</a>
-          <a href="#cta" onClick={() => setOpen(false)} className="btn-primary text-center btn-shimmer">Testar grátis</a>
+          <a href="#cta" onClick={() => setOpen(false)} className="btn-primary text-center btn-shimmer">Começar agora</a>
         </div>
       )}
       <style>{`
@@ -266,7 +266,7 @@ function Hero() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-              14 dias de teste grátis, sem fidelidade e sem cobrança
+              Sem fidelidade e sem instalar nada
             </motion.div>
             <motion.h1
               className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] leading-[1.02] font-bold"
@@ -2104,7 +2104,7 @@ function SobConsulta() {
             </div>
             <p className="mt-4 text-sm leading-relaxed" style={{ color: "oklch(0.45 0.01 70)" }}>
               O valor é definido conforme o número de usuários, unidades e recursos que sua oficina precisa.
-              Sem fidelidade e com 14 dias de teste grátis.
+              Sem fidelidade.
             </p>
             {/* Botão "Consultar valores" volta quando houver número de WhatsApp real. */}
           </div>
@@ -2209,7 +2209,7 @@ function CTAFinal() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         >
-          Comece hoje. 14 dias grátis, sem fidelidade e sem instalar nada.
+          Sem fidelidade e sem instalar nada.
         </motion.p>
         <motion.div
           className="mt-10 flex flex-col sm:flex-row gap-3 justify-center"
